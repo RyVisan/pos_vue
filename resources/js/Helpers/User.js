@@ -10,7 +10,7 @@ class User{
         }
     }
     hasToken(){
-        const storeToken = localStorage.getItem(token);
+        const storeToken = localStorage.getItem('token');
         if(storeToken){
             return Token.isValid(storeToken) ? true : false
         }
@@ -36,4 +36,4 @@ class User{
     }
 }
 
-export default User = User()
+export default User = new User()
