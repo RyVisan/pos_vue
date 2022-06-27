@@ -63,6 +63,28 @@ export default{
             errors:{}
         }
     },
+    // methods:{
+    //     login(){
+    //         axios.post('/api/auth/login', this.form)
+    //         .then(res => User.responeAfterLogin(res))
+    //         .catch(error => console.log(error.response.data))
+    //         .then(res => {
+    //             User.responeAfterLogin(res)
+    //             Toast.fire({
+    //                 icon: 'success',
+    //                 title: 'Signed in successfully'
+    //             })
+    //             this.$router.push({name: 'home'})
+    //         })
+    //         .catch(error => this.errors = error.response.data.errors)
+    //         .catch(
+    //             Toast.fire({
+    //                 icon: 'warning',
+    //                 title: 'Invalid Email or Password'
+    //             })
+    //         )
+    //     }
+    // }
     methods:{
         login(){
             axios.post('/api/auth/login', this.form)
@@ -74,13 +96,28 @@ export default{
                 })
                 this.$router.push({name: 'home'})
             })
-            .catch(error => this.errors = error.response.data.errors)
-            .catch(
-                Toast.fire({
-                    icon: 'warning',
-                    title: 'Invalid Email or Password'
-                })
-            )
+            .catch((error) => {
+                this.errors = {}
+                if (error.response.data.errors) {
+                    let err_msg = '';
+                    this.errors = error.response.data.errors
+                    for (const key in this.errors) {
+                        console.log(this.errors[key]);
+                        err_msg += this.errors[key] + '<br/>';
+                    }
+                    Toast.fire({
+                        icon: 'warning',
+                        title: err_msg
+                    })
+                }
+            })
+            // .catch(error => this.errors = error.response.data.errors)
+            // if (error.response.data.errors) {
+            //     Toast.fire({
+            //         icon: 'warning',
+            //         title: error.response.data.error
+            //     })
+            // }
         }
     }
 }

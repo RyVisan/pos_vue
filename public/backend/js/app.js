@@ -2018,6 +2018,28 @@ __webpack_require__.r(__webpack_exports__);
       errors: {}
     };
   },
+  // methods:{
+  //     login(){
+  //         axios.post('/api/auth/login', this.form)
+  //         .then(res => User.responeAfterLogin(res))
+  //         .catch(error => console.log(error.response.data))
+  //         .then(res => {
+  //             User.responeAfterLogin(res)
+  //             Toast.fire({
+  //                 icon: 'success',
+  //                 title: 'Signed in successfully'
+  //             })
+  //             this.$router.push({name: 'home'})
+  //         })
+  //         .catch(error => this.errors = error.response.data.errors)
+  //         .catch(
+  //             Toast.fire({
+  //                 icon: 'warning',
+  //                 title: 'Invalid Email or Password'
+  //             })
+  //         )
+  //     }
+  // }
   methods: {
     login: function login() {
       var _this = this;
@@ -2033,11 +2055,29 @@ __webpack_require__.r(__webpack_exports__);
           name: 'home'
         });
       })["catch"](function (error) {
-        return _this.errors = error.response.data.errors;
-      })["catch"](Toast.fire({
-        icon: 'warning',
-        title: 'Invalid Email or Password'
-      }));
+        _this.errors = {};
+
+        if (error.response.data.errors) {
+          var err_msg = '';
+          _this.errors = error.response.data.errors;
+
+          for (var key in _this.errors) {
+            console.log(_this.errors[key]);
+            err_msg += _this.errors[key] + '<br/>';
+          }
+
+          Toast.fire({
+            icon: 'warning',
+            title: err_msg
+          });
+        }
+      }); // .catch(error => this.errors = error.response.data.errors)
+      // if (error.response.data.errors) {
+      //     Toast.fire({
+      //         icon: 'warning',
+      //         title: error.response.data.error
+      //     })
+      // }
     }
   }
 });
@@ -58944,15 +58984,14 @@ __webpack_require__.r(__webpack_exports__);
 /*!***************************************************!*\
   !*** ./resources/js/components/auth/register.vue ***!
   \***************************************************/
-/*! no static exports found */
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _register_vue_vue_type_template_id_e8907422___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./register.vue?vue&type=template&id=e8907422& */ "./resources/js/components/auth/register.vue?vue&type=template&id=e8907422&");
 /* harmony import */ var _register_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./register.vue?vue&type=script&lang=js& */ "./resources/js/components/auth/register.vue?vue&type=script&lang=js&");
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _register_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _register_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[key]; }) }(__WEBPACK_IMPORT_KEY__));
-/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
 
@@ -58982,7 +59021,7 @@ component.options.__file = "resources/js/components/auth/register.vue"
 /*!****************************************************************************!*\
   !*** ./resources/js/components/auth/register.vue?vue&type=script&lang=js& ***!
   \****************************************************************************/
-/*! no static exports found */
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
