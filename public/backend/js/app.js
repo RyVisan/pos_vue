@@ -59182,8 +59182,8 @@ var routes = [{
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\Users\DNK-IT-2\Desktop\POS_Vue\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\Users\DNK-IT-2\Desktop\POS_Vue\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\xampp\htdocs\pos_vue\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\xampp\htdocs\pos_vue\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
