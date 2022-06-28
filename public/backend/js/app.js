@@ -2202,7 +2202,8 @@ __webpack_require__.r(__webpack_exports__);
           name: 'home'
         });
       })["catch"](function (error) {
-        return _this.errors = error.response.data.errors;
+        console.log(error.response.data);
+        _this.errors = error.response.data.errors;
       });
     }
   }
