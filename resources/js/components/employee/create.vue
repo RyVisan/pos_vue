@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="row">
-            <router-link to="" class="btn btn-primary">All Employee</router-link>
+            <router-link to="/employee" class="btn btn-primary">All Employee</router-link>
         </div>
         <div class="row justify-content-center">
             <div class="col-xl-12 col-lg-12 col-md-12">
@@ -13,7 +13,7 @@
                                     <div class="text-center">
                                         <h1 class="h4 text-gray-900 mb-4">Add Employee</h1>
                                     </div>
-                                    <form @submit.prevent="signup">
+                                    <form @submit.prevent="employeeInsert" enctype="multipart/form-data">
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-md-6">
@@ -52,10 +52,10 @@
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-md-6">
-                                                    <input type="date" v-model="form.join_date" class="form-control"
+                                                    <input type="date" v-model="form.joining_date" class="form-control"
                                                         id="exampleInputFirstName">
-                                                    <small class="text-danger" v-if="errors.join_date">{{
-                                                            errors.join_date[0]
+                                                    <small class="text-danger" v-if="errors.joining_date">{{
+                                                            errors.joining_date[0]
                                                     }}</small>
                                                 </div>
                                                 <div class="col-md-6">
@@ -118,8 +118,12 @@ export default {
             form: {
                 name: null,
                 email: null,
-                password: null,
-                confirm_password: null,
+                address: null,
+                phone: null,
+                photo: null,
+                date: null,
+                joining_date: null,
+                nid: null,
             },
             errors: {}
         }
