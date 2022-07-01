@@ -82,13 +82,14 @@
                                             <div class="form-row">
                                                 <div class="col-md-6">
                                                     <div class="custom-file">
-                                                        <input type="file" class="custom-file-input" id="customFile">
+                                                        <input type="file" class="custom-file-input" id="customFile"
+                                                            @change="onFileSelected">
                                                         <label class="custom-file-label" for="customFile">Choose
                                                             file</label>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
-                                                    <img src="form.photo" style="width: 40px; height: 40px;">
+                                                    <img :src="form.photo" style="width: 40px; height: 40px;">
                                                 </div>
                                             </div>
                                         </div>
@@ -107,6 +108,10 @@
 </template>
 
 <script>
+// import { rename } from 'fs';
+
+import Axios from 'axios';
+
 export default {
     created() {
         if (!User.loggedIn()) {
@@ -127,6 +132,29 @@ export default {
             },
             errors: {}
         }
+    },
+    methods: {
+        onFileSelected(event) {
+            let file = event.target.files[0];
+            if (file.size > 1048576) {
+                Notification.image_validation()
+            } else {
+                let reader = new FileReader();
+                reader.onload = event => {
+                    this.form.photo = event.target.result
+                    console.log(event.target.result);
+                };
+                reader.readAsDataURL(file);
+            }
+        },
+        employeeInsert() {
+            axios.post('/api/employee', this.form)
+                .then(() => {
+                    this.$router.push({ name: 'employee' })
+                    Notification.success()
+                })
+                .catch(error => this.errors = error.response.data.errors)
+        },
     }
 }
 </script>
