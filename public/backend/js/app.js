@@ -2220,8 +2220,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 //
 //
 //
@@ -2331,8 +2329,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-// import { rename } from 'fs';
-
 /* harmony default export */ __webpack_exports__["default"] = ({
   created: function created() {
     if (!User.loggedIn()) {
@@ -2347,11 +2343,11 @@ __webpack_require__.r(__webpack_exports__);
         name: null,
         email: null,
         address: null,
-        phone: null,
-        photo: null,
-        date: null,
+        salary: null,
         joining_date: null,
-        nid: null
+        nid: null,
+        phone: null,
+        photo: null
       },
       errors: {}
     };
@@ -46497,7 +46493,7 @@ var staticRenderFns = [
                 _c("div", { staticClass: "login-form" }, [
                   _c("div", { staticClass: "text-center" }, [
                     _c("h1", { staticClass: "h4 text-gray-900 mb-4" }, [
-                      _vm._v("Add Employee"),
+                      _vm._v("All Employee"),
                     ]),
                   ]),
                 ]),

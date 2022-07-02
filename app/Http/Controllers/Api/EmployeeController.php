@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Image;
+use App\Models\Employee;
 
 class EmployeeController extends Controller
 {
@@ -36,7 +38,43 @@ class EmployeeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validation = $request->validate([
+            'name' => 'required',
+            'email' => 'required|unique:employees|email',
+            'phone' => 'required|',
+        ]);
+
+        if ($request->photo) {
+            $position = strpos($request->photo, ';');
+            $sub = substr($request->photo, 0, $position);
+            $ext = explode('/', $sub)[1];
+            $name = time().'.'.$ext;
+            $img = Image::make($request->photo)->resize(240, 200);
+            $upload_part = 'backend/employee/';
+            $image_url = $upload_part.$name;
+            $img->save($image_url);
+
+            $employees = Employee::create([
+                'name' => $request->name,
+                'email' => $request->email,
+                'address' => $request->address,
+                'salary' => $request->salary,
+                'joing_date' => $request->joing_date,
+                'nid' => $request->nid,
+                'phone' => $request->phone,
+                'photo' => $image_url
+            ]);
+        }else{            
+             $employees = Employee::create([
+                'name' => $request->name,
+                'email' => $request->email,
+                'address' => $request->address,
+                'salary' => $request->salary,
+                'joing_date' => $request->joing_date,
+                'nid' => $request->nid,
+                'phone' => $request->phone
+            ]);
+        }
     }
 
     /**

@@ -108,11 +108,7 @@
 </template>
 
 <script>
-// import { rename } from 'fs';
-
-import Axios from 'axios';
-
-export default {
+export default{
     created() {
         if (!User.loggedIn()) {
             this.$router.push({ name: '/' })
@@ -124,11 +120,11 @@ export default {
                 name: null,
                 email: null,
                 address: null,
-                phone: null,
-                photo: null,
-                date: null,
+                salary: null,
                 joining_date: null,
                 nid: null,
+                phone: null,
+                photo: null,
             },
             errors: {}
         }
