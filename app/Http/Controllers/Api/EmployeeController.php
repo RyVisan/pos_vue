@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use Image;
-use App\Models\Employee;
+use App\Model\Employee;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class EmployeeController extends Controller
 {
@@ -50,7 +50,7 @@ class EmployeeController extends Controller
             $ext = explode('/', $sub)[1];
             $name = time().'.'.$ext;
             $img = Image::make($request->photo)->resize(240, 200);
-            $upload_part = 'backend/employee/';
+            $upload_part = 'public/backend/employee/';
             $image_url = $upload_part.$name;
             $img->save($image_url);
 
@@ -59,18 +59,28 @@ class EmployeeController extends Controller
                 'email' => $request->email,
                 'address' => $request->address,
                 'salary' => $request->salary,
-                'joing_date' => $request->joing_date,
+                'joining_date' => $request->joining_date,
                 'nid' => $request->nid,
                 'phone' => $request->phone,
                 'photo' => $image_url
             ]);
-        }else{            
-             $employees = Employee::create([
+        }else{    
+            // $employee = new Employee;
+            // $employee->name = $request->name;
+            // $employee->email = $request->email;
+            // $employee->address = $request->address;
+            // $employee->phone = $request->phone;
+            // $employee->salary = $request->salary;
+            // $employee->joining_date = $request->joining_date;
+            // $employee->nid = $request->nid;
+            // $employee->save();
+                    
+            $employees = Employee::create([
                 'name' => $request->name,
                 'email' => $request->email,
                 'address' => $request->address,
                 'salary' => $request->salary,
-                'joing_date' => $request->joing_date,
+                'joining_date' => $request->joining_date,
                 'nid' => $request->nid,
                 'phone' => $request->phone
             ]);
