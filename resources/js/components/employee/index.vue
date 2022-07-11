@@ -46,7 +46,7 @@
 </template>
 
 <script>
-import Axios from 'axios'
+// import Axios from 'axios'
 
 export default {
     created() {
@@ -61,7 +61,7 @@ export default {
     },
     methods: {
         allEmployee() {
-            axios.get('/api/employee')
+            axios.get('/api/employee/')
                 .then(({ data }) => (this.employees = data))
                 .catch()
         }

@@ -2398,8 +2398,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 //
@@ -2449,7 +2447,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-
+// import Axios from 'axios'
 /* harmony default export */ __webpack_exports__["default"] = (_defineProperty({
   created: function created() {
     if (!User.loggedIn()) {
@@ -2467,7 +2465,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     allEmployee: function allEmployee() {
       var _this = this;
 
-      axios.get('/api/employee').then(function (_ref) {
+      axios.get('/api/employee/').then(function (_ref) {
         var data = _ref.data;
         return _this.employees = data;
       })["catch"]();
