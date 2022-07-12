@@ -2,6 +2,8 @@
     <div>
         <!-- <div class="row"> -->
         <router-link to="/store-employee" class="btn btn-primary">Add Employee</router-link>
+        <input type="text" v-model="searchTerm" class="form-control mt-4" placeholder="Search....."
+            style="width: 300px;">
         <!-- </div> -->
         <div class="row">
             <div class="col-lg-12 my-4">
@@ -23,15 +25,16 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr v-for="employee in employees" :key="employee.id">
+                                <tr v-for="employee in filterSearch" :key="employee.id">
                                     <td>{{ employee.name }}</td>
                                     <td><img :src="employee.photo" id="em_photo"></td>
                                     <td>{{ employee.phone }}</td>
                                     <td>{{ employee.salary }}</td>
                                     <td>{{ employee.joining_date }}</td>
                                     <td>
-                                        <a href="#" class="btn btn-sm btn-primary">Edit</a>
-                                        <a href="#" class="btn btn-sm btn-danger">Delete</a>
+                                        <router-link :to="{ name: 'edit-employee', params: { id: employee.id } }"
+                                            class="btn btn-sm btn-primary">Edit</router-link>
+                                        <a @click="deleteEmployee(employee.id)" class="btn btn-sm btn-danger">Delete</a>
                                     </td>
                                 </tr>
 
@@ -46,7 +49,6 @@
 </template>
 
 <script>
-// import Axios from 'axios'
 
 export default {
     created() {
@@ -56,7 +58,15 @@ export default {
     },
     data() {
         return {
-            employees: []
+            employees: [],
+            searchTerm: ''
+        }
+    },
+    computed: {
+        filterSearch() {
+            return this.employees.filter(employee => {
+                return employee.name.match(this.searchTerm)
+            })
         }
     },
     methods: {
@@ -64,6 +74,34 @@ export default {
             axios.get('/api/employee/')
                 .then(({ data }) => (this.employees = data))
                 .catch()
+        },
+        deleteEmployee(id) {
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    axios.delete('/api/employee/' + id)
+                        .then(() => {
+                            this.employees = this.employees.filter(employee => {
+                                return employee.id != id
+                            })
+                        })
+                        .catch(() => {
+                            this.$router.push({ name: 'employee' })
+                        })
+                    Swal.fire(
+                        'Deleted!',
+                        'Your file has been deleted.',
+                        'success'
+                    )
+                }
+            })
         }
     },
     created() {

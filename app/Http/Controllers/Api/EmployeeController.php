@@ -65,17 +65,7 @@ class EmployeeController extends Controller
                 'phone' => $request->phone,
                 'photo' => $image_url
             ]);
-        }else{    
-            // $employee = new Employee;
-            // $employee->name = $request->name;
-            // $employee->email = $request->email;
-            // $employee->address = $request->address;
-            // $employee->phone = $request->phone;
-            // $employee->salary = $request->salary;
-            // $employee->joining_date = $request->joining_date;
-            // $employee->nid = $request->nid;
-            // $employee->save();
-                    
+        }else{                    
             $employees = Employee::create([
                 'name' => $request->name,
                 'email' => $request->email,
@@ -96,7 +86,8 @@ class EmployeeController extends Controller
      */
     public function show($id)
     {
-        //
+        $employee = Employee::find($id);
+        return response()->json($employee);
     }
 
     /**
@@ -130,6 +121,13 @@ class EmployeeController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $employee = Employee::find($id);
+        $photo = $employee->photo;
+        if($photo){
+            unlink($photo);
+            Employee::find($id)->delete();
+        }else{
+            Employee::find($id)->delete();
+        }
     }
 }
