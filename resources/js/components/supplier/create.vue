@@ -1,7 +1,7 @@
 <template>
     <div>
         <!-- <div class="row"> -->
-        <router-link to="/employee" class="btn btn-primary">All Employee</router-link>
+        <router-link to="/supplier" class="btn btn-primary">All Supplier</router-link>
         <!-- </div> -->
         <div class="row justify-content-center">
             <div class="col-xl-12 col-lg-12 col-md-12">
@@ -11,9 +11,9 @@
                             <div class="col-lg-12">
                                 <div class="login-form">
                                     <div class="text-center">
-                                        <h1 class="h4 text-gray-900 mb-4">Update Employee</h1>
+                                        <h1 class="h4 text-gray-900 mb-4">Add Supplier</h1>
                                     </div>
-                                    <form @submit.prevent="employeeUpdate" enctype="multipart/form-data">
+                                    <form @submit.prevent="supplierInsert" enctype="multipart/form-data">
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-md-6">
@@ -41,27 +41,10 @@
                                                     }}</small>
                                                 </div>
                                                 <div class="col-md-6">
-                                                    <input type="text" v-model="form.salary" class="form-control"
-                                                        id="exampleInputFirstName" placeholder="Enter Your Salary">
-                                                    <small class="text-danger" v-if="errors.salary">{{
-                                                            errors.salary[0]
-                                                    }}</small>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <div class="form-row">
-                                                <div class="col-md-6">
-                                                    <input type="date" v-model="form.joining_date" class="form-control"
-                                                        id="exampleInputFirstName">
-                                                    <small class="text-danger" v-if="errors.joining_date">{{
-                                                            errors.joining_date[0]
-                                                    }}</small>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <input type="text" v-model="form.nid" class="form-control"
-                                                        id="exampleInputFirstName" placeholder="Enter Your Nid">
-                                                    <small class="text-danger" v-if="errors.nid">{{ errors.nid[0]
+                                                    <input type="text" v-model="form.shopname" class="form-control"
+                                                        id="exampleInputFirstName" placeholder="Enter Your Shop Name">
+                                                    <small class="text-danger" v-if="errors.shopname">{{
+                                                            errors.shopname[0]
                                                     }}</small>
                                                 </div>
                                             </div>
@@ -94,7 +77,7 @@
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <button type="submit" class="btn btn-primary btn-block">Update</button>
+                                            <button type="submit" class="btn btn-primary btn-block">Submit</button>
                                         </div>
                                     </form>
                                 </div>
@@ -117,24 +100,15 @@ export default {
     data() {
         return {
             form: {
-                name: '',
-                email: '',
-                address: '',
-                salary: '',
-                joining_date: '',
-                nid: '',
-                phone: '',
-                photo: '',
-                newphoto: '',
+                name: null,
+                email: null,
+                address: null,
+                shopname: null,
+                phone: null,
+                photo: null,
             },
             errors: {}
         }
-    },
-    created() {
-        let id = this.$route.params.id
-        axios.get('/api/employee/' + id)
-            .then(({ data }) => (this.form = data))
-            .catch(console.log('error'))
     },
     methods: {
         onFileSelected(event) {
@@ -144,16 +118,16 @@ export default {
             } else {
                 let reader = new FileReader();
                 reader.onload = event => {
-                    this.form.newphoto = event.target.result
+                    this.form.photo = event.target.result
+                    console.log(event.target.result);
                 };
                 reader.readAsDataURL(file);
             }
         },
-        employeeUpdate() {
-            let id = this.$route.params.id
-            axios.patch('/api/employee/' + id, this.form)
+        supplierInsert() {
+            axios.post('/api/supplier', this.form)
                 .then(() => {
-                    this.$router.push({ name: 'employee' })
+                    this.$router.push({ name: 'supplier' })
                     Notification.success()
                 })
                 .catch(error => this.errors = error.response.data.errors)
