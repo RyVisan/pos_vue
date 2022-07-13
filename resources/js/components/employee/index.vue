@@ -19,6 +19,7 @@
                                     <th>Name</th>
                                     <th>Photo</th>
                                     <th>Phone</th>
+                                    <th>Address</th>
                                     <th>Salary</th>
                                     <th>NID</th>
                                     <th>Joining Date</th>
@@ -30,6 +31,7 @@
                                     <td>{{ employee.name }}</td>
                                     <td><img :src="employee.photo" id="em_photo"></td>
                                     <td>{{ employee.phone }}</td>
+                                    <td>{{ employee.address }}</td>
                                     <td>{{ employee.salary }}</td>
                                     <td>{{ employee.nid }}</td>
                                     <td>{{ employee.joining_date }}</td>

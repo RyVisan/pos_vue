@@ -19,6 +19,7 @@
                                     <th>Name</th>
                                     <th>Photo</th>
                                     <th>Phone</th>
+                                    <th>Address</th>
                                     <th>Email</th>
                                     <th>Shop Name</th>
                                     <th>Action</th>
@@ -29,6 +30,7 @@
                                     <td>{{ supplier.name }}</td>
                                     <td><img :src="supplier.photo" id="em_photo"></td>
                                     <td>{{ supplier.phone }}</td>
+                                    <td>{{ supplier.address }}</td>
                                     <td>{{ supplier.email }}</td>
                                     <td>{{ supplier.shopname }}</td>
                                     <td>

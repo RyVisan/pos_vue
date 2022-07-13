@@ -5,8 +5,8 @@ namespace App\Http\Controllers\api;
 use Image;
 use App\Model\Supplier;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
-use DB;
 
 
 class SupplierController extends Controller
@@ -73,7 +73,8 @@ class SupplierController extends Controller
      */
     public function show($id)
     {
-        //
+        $supplier = Supplier::find($id);
+        return response()->json($supplier);
     }
 
     /**
@@ -89,7 +90,34 @@ class SupplierController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $data = array();
+        $data['name'] = $request->name;
+        $data['email'] = $request->email;
+        $data['address'] = $request->address;
+        $data['shopname'] = $request->shopname;
+        $data['phone'] = $request->phone;
+        $image = $request->newphoto;
+        if ($image) {
+            $position = strpos($image, ';');
+            $sub = substr($image, 0, $position);
+            $ext = explode('/', $sub)[1];
+            $name = time().'.'.$ext;
+            $img = Image::make($image)->resize(240, 200);
+            $upload_part = 'public/backend/supplier/';
+            $image_url = $upload_part.$name;
+            $success = $img->save($image_url);
+            if ($success) {
+                $data['photo'] = $image_url;
+                $img = DB::table('suppliers')->where('id', $id)->first();
+                $image_path = $img->photo;
+                $done = unlink($image_path);
+                $user = DB::table('suppliers')->where('id', $id)->update($data);
+            }
+        }else{  
+            $oldphoto = $request->photo;
+            $data['photo'] = $oldphoto;
+            $user = DB::table('suppliers')->where('id', $id)->update($data);
+        }
     }
 
     /**
