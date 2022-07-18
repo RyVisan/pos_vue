@@ -84,6 +84,9 @@
                                                     <div class="custom-file">
                                                         <input type="file" class="custom-file-input" id="customFile"
                                                             @change="onFileSelected">
+                                                        <small class="text-danger" v-if="errors.photo">{{
+                                                                errors.photo[0]
+                                                        }}</small>
                                                         <label class="custom-file-label" for="customFile">Choose
                                                             file</label>
                                                     </div>
