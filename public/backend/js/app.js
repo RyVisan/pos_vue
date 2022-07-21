@@ -2635,6 +2635,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   created: function created() {
     if (!User.loggedIn()) {
@@ -3362,6 +3363,8 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 //
 //
 //
@@ -3501,7 +3504,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-/* harmony default export */ __webpack_exports__["default"] = ({
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = (_defineProperty({
   created: function created() {
     if (!User.loggedIn()) {
       this.$router.push({
@@ -3540,19 +3552,19 @@ __webpack_require__.r(__webpack_exports__);
         var reader = new FileReader();
 
         reader.onload = function (event) {
-          _this.form.photo = event.target.result;
+          _this.form.image = event.target.result;
           console.log(event.target.result);
         };
 
         reader.readAsDataURL(file);
       }
     },
-    employeeInsert: function employeeInsert() {
+    productInsert: function productInsert() {
       var _this2 = this;
 
-      axios.post('/api/employee', this.form).then(function () {
+      axios.post('/api/product', this.form).then(function () {
         _this2.$router.push({
-          name: 'employee'
+          name: 'product'
         });
 
         Notification.success();
@@ -3562,21 +3574,20 @@ __webpack_require__.r(__webpack_exports__);
       })["catch"](function (error) {
         return _this2.errors = error.response.data.errors;
       });
-    },
-    created: function created() {
-      var _this3 = this;
-
-      axios.get('/api/category/').then(function (_ref2) {
-        var data = _ref2.data;
-        return _this3.categories = data;
-      });
-      axios.get('/api/supplier/').then(function (_ref3) {
-        var data = _ref3.data;
-        return _this3.suppliers = data;
-      });
     }
   }
-});
+}, "created", function created() {
+  var _this3 = this;
+
+  axios.get('/api/category/').then(function (_ref2) {
+    var data = _ref2.data;
+    return _this3.categories = data;
+  });
+  axios.get('/api/supplier/').then(function (_ref3) {
+    var data = _ref3.data;
+    return _this3.suppliers = data;
+  });
+}));
 
 /***/ }),
 
@@ -3589,6 +3600,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
 //
 //
 //
@@ -48025,6 +48037,7 @@ var render = function () {
                     _c(
                       "form",
                       {
+                        attrs: { autocomplete: "off" },
                         on: {
                           submit: function ($event) {
                             $event.preventDefault()
@@ -48436,7 +48449,10 @@ var render = function () {
                     _c(
                       "form",
                       {
-                        attrs: { enctype: "multipart/form-data" },
+                        attrs: {
+                          enctype: "multipart/form-data",
+                          autocomplete: "off",
+                        },
                         on: {
                           submit: function ($event) {
                             $event.preventDefault()
@@ -50393,11 +50409,14 @@ var render = function () {
                     _c(
                       "form",
                       {
-                        attrs: { enctype: "multipart/form-data" },
+                        attrs: {
+                          enctype: "multipart/form-data",
+                          autocomplete: "off",
+                        },
                         on: {
                           submit: function ($event) {
                             $event.preventDefault()
-                            return _vm.employeeInsert.apply(null, arguments)
+                            return _vm.productInsert.apply(null, arguments)
                           },
                         },
                       },
@@ -50549,6 +50568,12 @@ var render = function () {
                                 }),
                                 0
                               ),
+                              _vm._v(" "),
+                              _vm.errors.category_id
+                                ? _c("small", { staticClass: "text-danger" }, [
+                                    _vm._v(_vm._s(_vm.errors.category_id[0])),
+                                  ])
+                                : _vm._e(),
                             ]),
                             _vm._v(" "),
                             _c("div", { staticClass: "col-md-6" }, [
@@ -50595,8 +50620,21 @@ var render = function () {
                                     },
                                   },
                                 },
-                                [_c("option", [_vm._v("1")])]
+                                _vm._l(_vm.suppliers, function (supplier) {
+                                  return _c(
+                                    "option",
+                                    { domProps: { value: supplier.id } },
+                                    [_vm._v(_vm._s(supplier.name))]
+                                  )
+                                }),
+                                0
                               ),
+                              _vm._v(" "),
+                              _vm.errors.supplier_id
+                                ? _c("small", { staticClass: "text-danger" }, [
+                                    _vm._v(_vm._s(_vm.errors.supplier_id[0])),
+                                  ])
+                                : _vm._e(),
                             ]),
                           ]),
                         ]),
@@ -50949,7 +50987,10 @@ var render = function () {
                     _c(
                       "form",
                       {
-                        attrs: { enctype: "multipart/form-data" },
+                        attrs: {
+                          enctype: "multipart/form-data",
+                          autocomplete: "off",
+                        },
                         on: {
                           submit: function ($event) {
                             $event.preventDefault()

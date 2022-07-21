@@ -13,7 +13,8 @@
                                     <div class="text-center">
                                         <h1 class="h4 text-gray-900 mb-4">Add Supplier</h1>
                                     </div>
-                                    <form @submit.prevent="supplierInsert" enctype="multipart/form-data">
+                                    <form @submit.prevent="supplierInsert" enctype="multipart/form-data"
+                                        autocomplete="off">
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-md-6">

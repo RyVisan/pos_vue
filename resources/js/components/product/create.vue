@@ -13,7 +13,8 @@
                                     <div class="text-center">
                                         <h1 class="h4 text-gray-900 mb-4">Add Product</h1>
                                     </div>
-                                    <form @submit.prevent="employeeInsert" enctype="multipart/form-data">
+                                    <form @submit.prevent="productInsert" enctype="multipart/form-data"
+                                        autocomplete="off">
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-md-6">
@@ -46,13 +47,21 @@
                                                                 category.category_name
                                                         }}</option>
                                                     </select>
+                                                    <small class="text-danger" v-if="errors.category_id">{{
+                                                            errors.category_id[0]
+                                                    }}</small>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <label for="exampleFormControlSelect1">Product Supplier</label>
                                                     <select class="form-control" id="exampleFormControlSelect1"
                                                         v-model="form.supplier_id">
-                                                        <option>1</option>
+                                                        <option :value="supplier.id" v-for="supplier in suppliers">{{
+                                                                supplier.name
+                                                        }}</option>
                                                     </select>
+                                                    <small class="text-danger" v-if="errors.supplier_id">{{
+                                                            errors.supplier_id[0]
+                                                    }}</small>
                                                 </div>
                                             </div>
                                         </div>
@@ -160,7 +169,7 @@ export default {
             },
             errors: {},
             categories: {},
-            suppliers: {}
+            suppliers: {},
         }
     },
     methods: {
@@ -171,28 +180,29 @@ export default {
             } else {
                 let reader = new FileReader();
                 reader.onload = event => {
-                    this.form.photo = event.target.result
+                    this.form.image = event.target.result
                     console.log(event.target.result);
                 };
                 reader.readAsDataURL(file);
             }
         },
-        employeeInsert() {
-            axios.post('/api/employee', this.form)
+        productInsert() {
+            axios.post('/api/product', this.form)
                 .then(() => {
-                    this.$router.push({ name: 'employee' })
+                    this.$router.push({ name: 'product' })
                     Notification.success()
                 })
                 .then(({ data }) => (this.suppliers))
                 .catch(error => this.errors = error.response.data.errors)
-        },
-        created() {
-            axios.get('/api/category/')
-                .then(({ data }) => (this.categories = data))
-
-            axios.get('/api/supplier/')
-                .then(({ data }) => (this.suppliers = data))
         }
+
+    },
+    created() {
+        axios.get('/api/category/')
+            .then(({ data }) => (this.categories = data))
+
+        axios.get('/api/supplier/')
+            .then(({ data }) => (this.suppliers = data))
     }
 }
 </script>

@@ -13,7 +13,7 @@
                                     <div class="text-center">
                                         <h1 class="h4 text-gray-900 mb-4">Add Category</h1>
                                     </div>
-                                    <form @submit.prevent="categoryInsert">
+                                    <form @submit.prevent="categoryInsert" autocomplete="off">
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-md-12">
