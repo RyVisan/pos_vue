@@ -11,12 +11,18 @@ class ProductController extends Controller
 {
     /**
      * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        
+        // $products = Product::query()
+        //     ->with(['Category' => function ($query) {
+        //         $query->select('id', 'category_name');
+        //     }])
+        // ->get();
+
+        $products = Product::all();
+        return response()->json($products);
+
     }
 
     /**
