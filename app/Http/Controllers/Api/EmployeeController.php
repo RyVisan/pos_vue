@@ -17,7 +17,6 @@ class EmployeeController extends Controller
     {
         $employee = Employee::all();
         return response()->json($employee);
-
     }
 
     /**

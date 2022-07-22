@@ -38,7 +38,7 @@
                                     <td>
                                         <router-link :to="{ name: 'edit-product', params: { id: product.id } }"
                                             class="btn btn-sm btn-primary">Edit</router-link>
-                                        <a @click="deleteEmployee(product.id)" class="btn btn-sm btn-danger"
+                                        <a @click="deleteProduct(product.id)" class="btn btn-sm btn-danger"
                                             style="color: white;">Delete</a>
                                     </td>
                                 </tr>
@@ -80,7 +80,7 @@ export default {
                 .then(({ data }) => (this.products = data))
                 .catch()
         },
-        deleteEmployee(id) {
+        deleteProduct(id) {
             Swal.fire({
                 title: 'Are you sure?',
                 text: "You won't be able to revert this!",
@@ -91,14 +91,14 @@ export default {
                 confirmButtonText: 'Yes, delete it!'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    axios.delete('/api/employee/' + id)
+                    axios.delete('/api/product/' + id)
                         .then(() => {
-                            this.employees = this.employees.filter(employee => {
-                                return employee.id != id
+                            this.products = this.products.filter(product => {
+                                return product.id != id
                             })
                         })
                         .catch(() => {
-                            this.$router.push({ name: 'employee' })
+                            this.$router.push({ name: 'product' })
                         })
                     Swal.fire(
                         'Deleted!',
