@@ -373,6 +373,15 @@
                     </div>
                     <!---Container Fluid-->
                 </div>
+                <footer class="sticky-footer bg-white">
+                    <div class="container my-auto">
+                      <div class="copyright text-center my-auto">
+                        <span>copyright © 2022 - developed by
+                          <b><a href="#" target="_blank">Ry Visan</a></b>
+                        </span>
+                      </div>
+                    </div>
+                </footer>
             </div>
         </div>
     </div>

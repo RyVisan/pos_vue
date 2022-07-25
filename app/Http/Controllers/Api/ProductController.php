@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use Image;
 use App\Model\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 
 class ProductController extends Controller
@@ -14,15 +15,13 @@ class ProductController extends Controller
      */
     public function index()
     {
-        // $products = Product::query()
-        //     ->with(['Category' => function ($query) {
-        //         $query->select('id', 'category_name');
-        //     }])
-        // ->get();
-
-        $products = Product::all();
+        $products = Product::query()
+            ->with(array(
+                'category' => function($query) {
+                    $query->select('id','category_name');
+                }
+            ))->get();
         return response()->json($products);
-
     }
 
     /**
@@ -67,6 +66,7 @@ class ProductController extends Controller
                 'supplier_id' => $request->supplier_id,
                 'product_code' => $request->product_code,
                 'buying_price' => $request->buying_price,
+                'root' => $request->root,
                 'selling_price' => $request->selling_price,
                 'buying_date' => $request->buying_date,
                 'product_quantity' => $request->product_quantity,
@@ -79,6 +79,7 @@ class ProductController extends Controller
                 'supplier_id' => $request->supplier_id,
                 'product_code' => $request->product_code,
                 'buying_price' => $request->buying_price,
+                'root' => $request->root,
                 'selling_price' => $request->selling_price,
                 'buying_date' => $request->buying_date,
                 'product_quantity' => $request->product_quantity
@@ -94,7 +95,8 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        //
+        $product = Product::find($id);
+        return response()->json($product);
     }
 
     /**
@@ -117,7 +119,38 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $data = array();
+        $data['product_name'] = $request->product_name;
+        $data['category_id'] = $request->category_id;
+        $data['supplier_id'] = $request->supplier_id;
+        $data['product_code'] = $request->product_code;
+        $data['buying_price'] = $request->buying_price;
+        $data['root'] = $request->root;
+        $data['selling_price'] = $request->selling_price;
+        $data['buying_date'] = $request->buying_date;
+        $data['product_quantity'] = $request->product_quantity;
+        $image = $request->newimage;
+        if ($image) {
+            $position = strpos($image, ';');
+            $sub = substr($image, 0, $position);
+            $ext = explode('/', $sub)[1];
+            $name = time().'.'.$ext;
+            $img = Image::make($image)->resize(240, 200);
+            $upload_part = 'public/backend/product/';
+            $image_url = $upload_part.$name;
+            $success = $img->save($image_url);
+            if ($success) {
+                $data['image'] = $image_url;
+                $img = DB::table('products')->where('id', $id)->first();
+                $image_path = $img->image;
+                $done = unlink($image_path);
+                $user = DB::table('products')->where('id', $id)->update($data);
+            }
+        }else{  
+            $oldimage = $request->image;
+            $data['image'] = $oldimage;
+            $user = DB::table('products')->where('id', $id)->update($data);
+        }
     }
 
     /**
