@@ -27,6 +27,11 @@ let storeproduct = require('./components/product/create.vue').default;
 let product = require('./components/product/index.vue').default;
 let editeproduct = require('./components/product/edit.vue').default;
 
+//Expense Component
+let storeexpense = require('./components/expense/create.vue').default;
+let expense = require('./components/expense/index.vue').default;
+let editeexpense = require('./components/expense/edit.vue').default;
+
 export const routes = [
     { path: '/', component: login, name: '/' },
     { path: '/register', component: register, name: 'register' },
@@ -53,4 +58,9 @@ export const routes = [
     { path: '/store-product', component: storeproduct, name: 'store-product' },
     { path: '/product', component: product, name: 'product' },
     { path: '/edit-product/:id', component: editeproduct, name: 'edit-product' },
+
+    //Expense Routes
+    { path: '/store-expense', component: storeexpense, name: 'store-expense' },
+    { path: '/expense', component: expense, name: 'expense' },
+    { path: '/edit-expense/:id', component: editeexpense, name: 'edit-expense' },
 ]
