@@ -9,12 +9,12 @@ use App\Http\Controllers\Controller;
 class SalaryController extends Controller
 {
     public function paid(Request $request, $id){
-        $validation = $request->validate([
+        $request->validate([
             'salary_month' => 'required'
         ]);
 
         $month = $request->salary_month;
-        $check = Salary::find($id)->where('employee_id',$id)->where('salary_month', $month)->first();
+        $check = Salary::where('employee_id',$id)->where('salary_month', $month)->first();
         if($check){
             return response()->json('Salary Already Paid');
         }else{
