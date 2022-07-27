@@ -41,13 +41,24 @@ class SalaryController extends Controller
         $month = $id;
         $view = DB::table('salaries')
             ->join('employees', 'salaries.employee_id', 'employees.id')
-            ->where('salaries.salary_month',$month)
             ->select('employees.name', 'salaries.*')
+            ->where('salaries.salary_month',$month)
             ->get();
-        // $view = Salary::with('employee')->where('salary_month',$month)->get();
-        // $view = Salary::with(array('employee'=>function($query){
-        //     $query->select('id','name');
-        // }))->get();
+        // $view = Salary::with('employee')->where('name')->get();
+        // $view = Salary::query()
+        //     ->with(array(
+        //         'employee' => function($query) {
+        //             $query->select('id','name');
+        //         }
+        //     ))->get();
         return response()->json($view);
+    }
+
+    public function EditSalary($id){
+        $view = DB::table('salaries')
+            ->join('employees', 'salaries.employee_id', 'employees.id')
+            ->select('employees.name', 'salaries.email', 'salaries.*')
+            ->where('salaries.id',$id)
+            ->first();
     }
 }
