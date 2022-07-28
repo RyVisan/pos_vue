@@ -9,7 +9,7 @@ use App\Http\Controllers\Controller;
 
 class SalaryController extends Controller
 {
-    //paid
+    //Paid
     public function Paid(Request $request, $id){
         $request->validate([
             'salary_month' => 'required'
