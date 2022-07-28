@@ -4631,6 +4631,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = (_created$data$created = {
   created: function created() {
     if (!User.loggedIn()) {
@@ -4644,8 +4645,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       form: {
         name: '',
         email: '',
-        salary: '',
-        salary_month: ''
+        amount: '',
+        salary_month: '',
+        employee_id: ''
       },
       errors: {}
     };
@@ -4659,13 +4661,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     return _this.form = data;
   })["catch"](console.log('error'));
 }), _defineProperty(_created$data$created, "methods", {
-  SalaryPaid: function SalaryPaid() {
+  SalaryUpdate: function SalaryUpdate() {
     var _this2 = this;
 
     var id = this.$route.params.id;
-    axios.post('/api/salary/paid/' + id, this.form).then(function () {
+    axios.post('/api/salary/update/' + id, this.form).then(function () {
       _this2.$router.push({
-        name: 'given-salary'
+        name: 'salary'
       });
 
       Notification.success();
@@ -54325,7 +54327,7 @@ var render = function () {
       _c(
         "router-link",
         { staticClass: "btn btn-primary", attrs: { to: "/salary" } },
-        [_vm._v("Go Back")]
+        [_vm._v("All Salary")]
       ),
       _vm._v(" "),
       _c("div", { staticClass: "row justify-content-center" }, [
@@ -54553,8 +54555,33 @@ var render = function () {
                                   {
                                     name: "model",
                                     rawName: "v-model",
-                                    value: _vm.form.salary,
-                                    expression: "form.salary",
+                                    value: _vm.form.employee_id,
+                                    expression: "form.employee_id",
+                                  },
+                                ],
+                                attrs: { type: "hidden" },
+                                domProps: { value: _vm.form.employee_id },
+                                on: {
+                                  input: function ($event) {
+                                    if ($event.target.composing) {
+                                      return
+                                    }
+                                    _vm.$set(
+                                      _vm.form,
+                                      "employee_id",
+                                      $event.target.value
+                                    )
+                                  },
+                                },
+                              }),
+                              _vm._v(" "),
+                              _c("input", {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.form.amount,
+                                    expression: "form.amount",
                                   },
                                 ],
                                 staticClass: "form-control",
@@ -54563,7 +54590,7 @@ var render = function () {
                                   id: "exampleInputFirstName",
                                   placeholder: "Enter Your Salary",
                                 },
-                                domProps: { value: _vm.form.salary },
+                                domProps: { value: _vm.form.amount },
                                 on: {
                                   input: function ($event) {
                                     if ($event.target.composing) {
@@ -54571,16 +54598,16 @@ var render = function () {
                                     }
                                     _vm.$set(
                                       _vm.form,
-                                      "salary",
+                                      "amount",
                                       $event.target.value
                                     )
                                   },
                                 },
                               }),
                               _vm._v(" "),
-                              _vm.errors.salary
+                              _vm.errors.amount
                                 ? _c("small", { staticClass: "text-danger" }, [
-                                    _vm._v(_vm._s(_vm.errors.salary[0])),
+                                    _vm._v(_vm._s(_vm.errors.amount[0])),
                                   ])
                                 : _vm._e(),
                             ]),

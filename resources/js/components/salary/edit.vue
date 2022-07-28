@@ -1,7 +1,7 @@
 <template>
     <div>
         <!-- <div class="row"> -->
-        <router-link to="/salary" class="btn btn-primary">Go Back</router-link>
+        <router-link to="/salary" class="btn btn-primary">All Salary</router-link>
         <!-- </div> -->
         <div class="row justify-content-center">
             <div class="col-xl-12 col-lg-12 col-md-12">
@@ -58,10 +58,11 @@
                                                 </div>
                                                 <div class="col-md-6">
                                                     <label for="exampleFormControlSelect1"><b>Salary</b></label>
-                                                    <input type="text" v-model="form.salary" class="form-control"
+                                                    <input type="hidden" v-model="form.employee_id">
+                                                    <input type="text" v-model="form.amount" class="form-control"
                                                         id="exampleInputFirstName" placeholder="Enter Your Salary">
-                                                    <small class="text-danger" v-if="errors.salary">{{
-                                                            errors.salary[0]
+                                                    <small class="text-danger" v-if="errors.amount">{{
+                                                            errors.amount[0]
                                                     }}</small>
                                                 </div>
                                             </div>
@@ -92,10 +93,11 @@ export default {
             form: {
                 name: '',
                 email: '',
-                salary: '',
+                amount: '',
                 salary_month: '',
+                employee_id: '',
             },
-            errors: {},
+            errors: {}
         }
     },
     created() {
@@ -105,11 +107,11 @@ export default {
             .catch(console.log('error'))
     },
     methods: {
-        SalaryPaid() {
+        SalaryUpdate() {
             let id = this.$route.params.id
-            axios.post('/api/salary/paid/' + id, this.form)
+            axios.post('/api/salary/update/' + id, this.form)
                 .then(() => {
-                    this.$router.push({ name: 'given-salary' })
+                    this.$router.push({ name: 'salary' })
                     Notification.success()
                 })
                 .catch(error => this.errors = error.response.data.errors)
