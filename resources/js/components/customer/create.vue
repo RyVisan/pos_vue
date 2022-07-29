@@ -18,7 +18,7 @@
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-md-6">
-                                                    <label for="exampleFormControlSelect1">Customer Name <span
+                                                    <label for="exampleFormControlSelect1"><b>Customer Name</b> <span
                                                             class="text-danger">*</span></label>
                                                     <input type="text" v-model="form.name" class="form-control"
                                                         id="exampleInputFirstName" placeholder="Enter Your Full Name">
@@ -26,7 +26,7 @@
                                                     }}</small>
                                                 </div>
                                                 <div class="col-md-6">
-                                                    <label for="exampleFormControlSelect1">Customer Email</label>
+                                                    <label for="exampleFormControlSelect1"><b>Customer Email</b></label>
                                                     <input type="email" v-model="form.email" class="form-control"
                                                         id="exampleInputFirstName" placeholder="Enter Your Email">
                                                     <small class="text-danger" v-if="errors.email">{{
@@ -38,7 +38,7 @@
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-md-6">
-                                                    <label for="exampleFormControlSelect1">Customer Address <span
+                                                    <label for="exampleFormControlSelect1"><b>Customer Address</b> <span
                                                             class="text-danger">*</span></label>
                                                     <input type="text" v-model="form.address" class="form-control"
                                                         id="exampleInputFirstName" placeholder="Enter Your Address">
@@ -47,7 +47,7 @@
                                                     }}</small>
                                                 </div>
                                                 <div class="col-md-6">
-                                                    <label for="exampleFormControlSelect1">Customer Phone <span
+                                                    <label for="exampleFormControlSelect1"><b>Customer Phone</b> <span
                                                             class="text-danger">*</span></label>
                                                     <input type="text" v-model="form.phone" class="form-control"
                                                         id="exampleInputFirstName" placeholder="Enter Your Phone">

@@ -14,7 +14,7 @@ class CustomerController extends Controller
      */
     public function index()
     {
-        $customers = Customer::all();
+        $customers = Customer::latest()->get();
         return response()->json($customers);
     }
 
@@ -83,6 +83,13 @@ class CustomerController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $customer = Customer::find($id);
+        $photo = $customer->photo;
+        if ($photo) {
+            unlink($photo);
+            Customer::find($id)->delete();
+        }else{
+            Customer::find($id)->delete();
+        }
     }
 }
