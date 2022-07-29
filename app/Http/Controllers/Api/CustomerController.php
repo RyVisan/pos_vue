@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers\Api;
 
+use Image;
 use App\Model\Customer;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
-use Image;
 
 class CustomerController extends Controller
 {
@@ -67,7 +68,8 @@ class CustomerController extends Controller
      */
     public function show($id)
     {
-        //
+        $customer = Customer::find($id);
+        return response()->json($customer);
     }
 
     /**
@@ -75,7 +77,33 @@ class CustomerController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $data = array();
+        $data['name'] = $request->name;
+        $data['email'] = $request->email;
+        $data['address'] = $request->address;
+        $data['phone'] = $request->phone;
+        $image = $request->newphoto;
+        if ($image) {
+            $position = strpos($image, ';');
+            $sub = substr($image, 0, $position);
+            $ext = explode('/', $sub)[1];
+            $name = time().'.'.$ext;
+            $img = Image::make($image)->resize(240, 200);
+            $upload_part = 'public/backend/customer/';
+            $image_url = $upload_part.$name;
+            $success = $img->save($image_url);
+            if ($success) {
+                $data['photo'] = $image_url;
+                $img = DB::table('customers')->where('id', $id)->first();
+                $image_path = $img->photo;
+                $done = unlink($image_path);
+                $user = DB::table('customers')->where('id', $id)->update($data);
+            }
+        }else{  
+            $oldphoto = $request->photo;
+            $data['photo'] = $oldphoto;
+            $user = DB::table('customers')->where('id', $id)->update($data);
+        }
     }
 
     /**
