@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>RuangAdmin - Dashboard</title>
+    <title>POS</title>
     {{-- <link rel="stylesheet" href="{{ asset('css/app.css') }}"> --}}
     <link rel="stylesheet" href="{{ asset('backend/css/app.css') }}">
     <link href="{{ asset('backend') }}/img/logo/logo.png" rel="icon">
@@ -26,7 +26,7 @@
                         <div class="sidebar-brand-icon">
                             <img src="{{ asset('backend') }}/img/logo/logo2.png">
                         </div>
-                        <div class="sidebar-brand-text mx-3">RuangAdmin</div>
+                        <div class="sidebar-brand-text mx-3">POS Vue</div>
                     </a>
                     <hr class="sidebar-divider my-0">
                     <li class="nav-item active">
@@ -109,6 +109,20 @@
                         </div>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseBootstrap6"
+                            aria-expanded="true" aria-controls="collapseBootstrap6">
+                            <i class="far fa-fw fa-window-maximize"></i>
+                            <span>Customers</span>
+                        </a>
+                        <div id="collapseBootstrap6" class="collapse" aria-labelledby="headingBootstrap"
+                            data-parent="#accordionSidebar">
+                            <div class="bg-white py-2 collapse-inner rounded">
+                                <router-link to="/store-customer" class="collapse-item">Add Customer</router-link>
+                                <router-link to="/customer" class="collapse-item">All Customer</router-link>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseBootstrap5"
                             aria-expanded="true" aria-controls="collapseBootstrap5">
                             <i class="far fa-fw fa-window-maximize"></i>
@@ -133,14 +147,13 @@
                         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTable"
                             aria-expanded="true" aria-controls="collapseTable">
                             <i class="fas fa-fw fa-table"></i>
-                            <span>Tables</span>
+                            <span>Reports</span>
                         </a>
                         <div id="collapseTable" class="collapse" aria-labelledby="headingTable"
                             data-parent="#accordionSidebar">
                             <div class="bg-white py-2 collapse-inner rounded">
-                                <h6 class="collapse-header">Tables</h6>
-                                <a class="collapse-item" href="simple-tables.html">Simple Tables</a>
-                                <a class="collapse-item" href="datatables.html">DataTables</a>
+                                <a class="collapse-item" href="simple-tables.html">Report one</a>
+                                <a class="collapse-item" href="datatables.html">Report two</a>
                             </div>
                         </div>
                     </li>
