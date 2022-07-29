@@ -139,4 +139,14 @@ class ProductController extends Controller
             Product::find($id)->delete();
         }
     }
+
+    //UpdateStock
+    public function UpdateStock(Request $request, $id){
+        $request->validate([
+            'product_quantity' => 'required|integer'
+        ]);
+        Product::find($id)->update([
+            'product_quantity' => $request->product_quantity
+        ]);
+    }
 }

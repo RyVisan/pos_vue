@@ -33,16 +33,16 @@
                                     <td><img :src="product.image" id="em_photo"></td>
                                     <td>{{ product.category.category_name }}</td>
                                     <td>{{ product.buying_price }}</td>
-                                    <td v-if="product.product_quantity >= 1"><span
+                                    <td v-if="product.product_quantity >= 1 && product.product_quantity <= 5"><span
+                                            class="badge badge-warning">Low</span></td>
+                                    <td v-else-if="product.product_quantity >= 6"><span
                                             class="badge badge-success">Avialable</span></td>
                                     <td v-else=""><span class="badge badge-danger">Stock Out</span>
                                     </td>
                                     <td>{{ product.product_quantity }}</td>
                                     <td>
-                                        <router-link :to="{ name: 'edit-product', params: { id: product.id } }"
+                                        <router-link :to="{ name: 'edit-stock', params: { id: product.id } }"
                                             class="btn btn-sm btn-primary">Edit</router-link>
-                                        <a @click="deleteProduct(product.id)" class="btn btn-sm btn-danger"
-                                            style="color: white;">Delete</a>
                                     </td>
                                 </tr>
 
